@@ -2,113 +2,102 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special Proposal</title>
+    <title>Message</title>
     <style>
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #f3f4f6;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            color: #333;
         }
         .container {
-            text-align: center;
-            background-color: #ffffff;
+            background-color: #fff;
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 90%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
         }
         h1 {
             color: #333;
-            font-size: 3em;
-            margin-bottom: 20px;
-            font-weight: normal;
-        }
-        p {
-            font-size: 1.2em;
-            color: #555;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-        .heart {
-            font-size: 4em;
-            color: #d63384;
-            animation: heartbeat 1.5s infinite;
-        }
-        .button {
-            display: inline-block;
-            padding: 12px 30px;
-            font-size: 1em;
-            color: #ffffff;
-            background-color: #d63384;
-            border: none;
-            border-radius: 25px;
-            text-decoration: none;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #c1276a;
         }
         input {
             padding: 10px;
-            font-size: 1em;
-            border: 1px solid #ccc;
+            width: 80%;
+            margin: 10px 0;
             border-radius: 5px;
-            margin-bottom: 20px;
-            width: 100%;
-            max-width: 300px;
+            border: 1px solid #ccc;
         }
-        @keyframes heartbeat {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.2);
-            }
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        #message, #response, #loveMessage, #proposal {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
         }
     </style>
 </head>
 <body>
-    <div class="container" id="name-input">
+    <div class="container">
         <h1>Enter Your Name</h1>
-        <input type="text" id="name" placeholder="Your Name">
-        <button class="button" onclick="checkName()">Submit</button>
+        <form onsubmit="checkName(event)">
+            <input type="text" id="name" placeholder="Your Name">
+            <button type="submit">Submit</button>
+        </form>
+        <div id="loveMessage">
+            <p>Manpreet, you mean the world to me. I can't imagine my life without you.</p>
+        </div>
+        <div id="proposal">
+            <h2>Message</h2>
+            <p>Will you be mine?</p>
+            <button onclick="showResponse('yes')">Yes</button>
+            <button onclick="showResponse('no')">No</button>
+        </div>
+        <div id="response"></div>
     </div>
-    <div class="container" id="proposal" style="display: none;">
-        <h1>Will You Be Mine?</h1>
-        <p>You make my world so beautiful, and I can't imagine my life without you. Will you be my forever?</p>
-        <div class="heart">&#10084;</div>
-        <a href="#home" class="button" onclick="showHome()">Back to Home</a>
-    </div>
-    <div class="container" id="different-name" style="display: none;">
-        <h1>Hello!</h1>
-        <p>You are a great person in my life, and I truly appreciate you. Thank you for being wonderful!</p>
-        <a href="#home" class="button" onclick="showHome()">Back to Home</a>
-    </div>
+
     <script>
-        function checkName() {
-            var name = document.getElementById('name').value;
+        function checkName(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
             if (name.toLowerCase() === 'manpreet') {
-                document.getElementById('name-input').style.display = 'none';
+                document.getElementById('loveMessage').style.display = 'block';
                 document.getElementById('proposal').style.display = 'block';
+                document.getElementById('response').style.display = 'none';
             } else {
-                document.getElementById('name-input').style.display = 'none';
-                document.getElementById('different-name').style.display = 'block';
+                document.getElementById('proposal').style.display = 'none';
+                document.getElementById('response').style.display = 'block';
+                document.getElementById('loveMessage').style.display = 'none';
+                document.getElementById('response').innerHTML = '<p>Thank you for visiting!<br>We appreciate your time and interest.<br>Stay happy and keep smiling!</p>';
             }
         }
 
-        function showHome() {
+        function showResponse(answer) {
+            const responseDiv = document.getElementById('response');
+            responseDiv.style.display = 'block';
             document.getElementById('proposal').style.display = 'none';
-            document.getElementById('different-name').style.display = 'none';
-            document.getElementById('name-input').style.display = 'block';
-            document.getElementById('name').value = '';
+            if (answer === 'yes') {
+                responseDiv.innerHTML = '<p>Great! Here is my Instagram ID: <strong>@it_anime_ansh</strong><br>And my Snapchat number: <strong>8858320735</strong></p>';
+            } else {
+                responseDiv.innerHTML = '<p>Goodbye then!</p>';
+            }
         }
     </script>
 </body>
