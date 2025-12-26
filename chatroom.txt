@@ -1,104 +1,550 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Message</title>
-    <style>
-        body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            color: #333;
-        }
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-        h1 {
-            color: #333;
-        }
-        input {
-            padding: 10px;
-            width: 80%;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        button {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 10px;
-        }
-        button:hover {
-            background-color: #555;
-        }
-        #message, #response, #loveMessage, #proposal {
-            display: none;
-            margin-top: 20px;
-            padding: 20px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For Manpreet 💖</title>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,"Poppins",sans-serif}
+    html,body{
+      min-height:100%;
+    }
+    body{
+      display:block;
+      background:
+        radial-gradient(circle at top left,#ffdde1 0%,transparent 45%),
+        radial-gradient(circle at bottom right,#c4d9ff 0%,#0b051a 55%);
+      color:#fff;
+      overflow-y:auto;
+    }
+
+    .bg-orb{
+      position:fixed;border-radius:50%;filter:blur(4px);opacity:.7;z-index:-2;
+      animation:float 18s ease-in-out infinite alternate;
+    }
+    .orb-1{width:260px;height:260px;background:radial-gradient(circle,#ff7aa2,transparent 60%);top:-60px;right:-40px;}
+    .orb-2{width:220px;height:220px;background:radial-gradient(circle,#7f9bff,transparent 60%);bottom:-80px;left:-40px;animation-delay:2s;}
+    .orb-3{width:150px;height:150px;background:radial-gradient(circle,#ffd3a3,transparent 60%);top:50%;left:50%;transform:translate(-50%,-50%);opacity:.35;filter:blur(8px);}
+    @keyframes float{
+      from{transform:translate(0,0);}
+      to{transform:translate(40px,-30px);}
+    }
+
+    .hearts{position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;}
+    .heart{
+      position:absolute;color:#ff82b3;font-size:16px;
+      animation:floatUp 6s linear infinite;
+      opacity:.9;filter:drop-shadow(0 0 6px rgba(255,150,200,.85));
+    }
+    @keyframes floatUp{
+      0%{transform:translateY(0) translateX(0);opacity:0;}
+      15%{opacity:1;}
+      100%{transform:translateY(-120vh) translateX(50px);opacity:0;}
+    }
+
+    .wrapper{
+      position:relative;
+      padding:24px 12px 40px;
+      width:100%;
+      display:flex;
+      justify-content:center;
+      z-index:1;
+    }
+    .card{
+      width:min(520px,100%);
+      padding:26px 22px 26px;
+      margin:24px 0;
+      border-radius:24px;
+      background:radial-gradient(circle at top left,rgba(255,255,255,.18),rgba(8,2,24,.96));
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:0 18px 45px rgba(0,0,0,.65);
+      backdrop-filter:blur(26px);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";position:absolute;width:220px;height:220px;
+      background:radial-gradient(circle,rgba(255,255,255,.32),transparent 70%);
+      top:-120px;left:-60px;opacity:.4;pointer-events:none;
+    }
+
+    .page-tag{font-size:11px;color:#ffcdd7;margin-bottom:10px;letter-spacing:.15em;text-transform:uppercase;}
+    h1{font-size:26px;margin-bottom:6px;}
+    h1 span{
+      background:linear-gradient(120deg,#ff8fb7,#ffd3a3);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    h2{font-size:22px;margin-bottom:10px;}
+    .subtitle{font-size:13px;color:#d6ccff;margin-bottom:16px;}
+    .text{font-size:14px;line-height:1.7;color:#f8eaff;margin:14px 0 18px;text-align:left;white-space:pre-line;}
+    .question{font-size:18px;font-weight:600;margin:12px 0 18px;}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:10px;}
+    .chip{
+      padding:4px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      font-size:11px;color:#f9e4ff;
+      background:radial-gradient(circle,rgba(255,255,255,.16),rgba(34,15,72,.8));
+    }
+
+    .photo-frame{
+      width:130px;height:130px;margin:0 auto 14px;
+      border-radius:26px;padding:3px;
+      background:linear-gradient(135deg,rgba(255,165,195,.95),rgba(125,175,255,.95));
+      box-shadow:0 12px 28px rgba(0,0,0,.6);
+      animation:pulse 3s ease-in-out infinite;
+    }
+    .photo-inner{
+      width:100%;height:100%;border-radius:22px;overflow:hidden;
+      background:#120822;display:flex;align-items:center;justify-content:center;
+    }
+    .photo-inner img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);}
+    @keyframes pulse{
+      0%,100%{transform:translateY(0) scale(1);}
+      50%{transform:translateY(-4px) scale(1.04);}
+    }
+
+    .divider{
+      width:40%;height:1px;margin:0 auto 14px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+    }
+
+    .buttons-row{
+      display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:6px 0 4px;
+    }
+    button,a.btn-link{
+      border:none;outline:none;cursor:pointer;
+      padding:9px 20px;border-radius:999px;
+      font-size:13px;font-weight:500;
+      transition:transform .15s ease,box-shadow .15s ease,background .2s ease,opacity .2s ease;
+      text-decoration:none;display:inline-block;
+    }
+    .primary{
+      background:linear-gradient(135deg,#ff72ac,#ffb86c);
+      color:#fff;box-shadow:0 10px 26px rgba(255,120,170,.7);
+    }
+    .primary:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 14px 32px rgba(255,120,170,.9);}
+    .ghost{
+      background:rgba(255,255,255,.06);
+      color:#f3e9ff;border:1px solid rgba(255,255,255,.2);
+    }
+    .ghost:hover{background:rgba(255,255,255,.12);transform:translateY(-1px);}
+    .small-note{font-size:11px;color:#cbb6ff;margin-top:8px;opacity:.9;}
+
+    .answer-text{margin-top:8px;font-size:14px;color:#ffe8ff;min-height:24px;transition:opacity .25s ease;}
+
+    section.page{display:none;opacity:0;transform:translateY(18px);transition:opacity .4s ease,transform .4s ease;}
+    section.page.active{display:block;opacity:1;transform:translateY(0);}
+
+    @media(max-width:480px){
+      .card{padding:22px 18px 22px;margin:16px 0;}
+      h1{font-size:24px;}
+      .photo-frame{width:115px;height:115px;}
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Enter Your Name</h1>
-        <form onsubmit="checkName(event)">
-            <input type="text" id="name" placeholder="Your Name">
-            <button type="submit">Submit</button>
-        </form>
-        <div id="loveMessage">
-            <p>Manpreet, you mean the world to me. I can't imagine my life without you.</p>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="wrapper">
+    <div class="card">
+
+      <!-- PAGE 1 -->
+      <section class="page active" id="page1">
+        <div class="page-tag">Page 1 of 9 • The beginning</div>
+        <h1>Hi <span>Manpreet Kaur</span> 🌙</h1>
+        <p class="subtitle">
+          From a quiet boy in your Class 10 who never had the courage to say any of this face to face.
+        </p>
+
+        <div class="photo-frame">
+          <div class="photo-inner">
+            <img src="https://images.pexels.com/photos/1449655/pexels-photo-1449655.jpeg?auto=compress&cs=tinysrgb&w=800" alt="For Manpreet" />
+          </div>
         </div>
-        <div id="proposal">
-            <h2>Message</h2>
-            <p>Will you be mine?</p>
-            <button onclick="showResponse('yes')">Yes</button>
-            <button onclick="showResponse('no')">No</button>
+
+        <div class="chips">
+          <div class="chip">Same classroom, different benches</div>
+          <div class="chip">Many days, almost no conversations</div>
+          <div class="chip">But still, you stayed in my mind</div>
         </div>
-        <div id="response"></div>
+
+        <p class="text">
+We have never really talked.
+We never shared long conversations.
+Maybe you don’t even know how much space you already take in my world.
+
+But every morning, when you walk into class,
+there is a small, invisible change in the air.
+Things feel lighter.
+The day feels a little less ordinary.
+
+This page exists because I could never say this out loud,
+but I still wanted you to know.
+        </p>
+
+        <p class="question">So, will you give this silent boy a small place in your heart? 💖</p>
+
+        <div class="buttons-row">
+          <button class="primary" id="yesBtnMain">Yes 😳</button>
+          <button class="ghost" id="noBtnMain" style="position:relative;">No</button>
+        </div>
+
+        <div class="answer-text" id="answerMain"></div>
+
+        <div class="buttons-row" style="margin-top:10px;">
+          <button class="ghost" data-go="2">Read the full story ➜</button>
+        </div>
+
+        <p class="small-note">
+          (Even if you don’t press anything, it already means a lot that you reached this page.)
+        </p>
+      </section>
+
+      <!-- PAGE 2 -->
+      <section class="page" id="page2">
+        <div class="page-tag">Page 2 of 9 • How it started</div>
+        <h2>The quiet beginning</h2>
+        <p class="text">
+There was no big filmy moment.
+No slow motion.
+No background music.
+
+Just a normal Class 10 morning.
+
+You walked into the classroom,
+talking and laughing with your friends,
+and for some reason your smile stayed in my mind
+long after the bell had rung
+and the day had moved on.
+
+From that day,
+without a single proper conversation,
+you quietly became the reason
+I started liking school a little more.
+        </p>
+
+        <div class="buttons-row">
+          <button class="ghost" data-go="1">⬅ Back</button>
+          <button class="primary" data-go="3">Next ➜</button>
+        </div>
+      </section>
+
+      <!-- PAGE 3 -->
+      <section class="page" id="page3">
+        <div class="page-tag">Page 3 of 9 • What I notice</div>
+        <h2>The smallest details</h2>
+        <p class="text">
+I never had the courage to sit next to you,
+or randomly start a conversation.
+
+But from my bench,
+I noticed the tiny things.
+
+The way you listen carefully when a teacher explains something.
+The way you laugh with your friends over the smallest things.
+The way your face lights up when you understand a tough topic.
+
+These are moments no attendance sheet will ever record,
+but my heart somehow did.
+        </p>
+
+        <div class="buttons-row">
+          <button class="ghost" data-go="2">⬅ Back</button>
+          <button class="primary" data-go="4">Next ➜</button>
+        </div>
+      </section>
+
+      <!-- PAGE 4 -->
+      <section class="page" id="page4">
+        <div class="page-tag">Page 4 of 9 • Everyday school</div>
+        <h2>The normal days</h2>
+        <p class="text">
+For you, maybe they were just normal school days:
+periods, homework, classwork, random talks with friends.
+
+For me,
+they slowly became something else.
+
+A timetable of feelings.
+
+Assembly where I search for you in the crowd.
+Classroom moments where I feel calmer just because you are there.
+Dispersal time where I walk a little slower,
+just in case I can see you one more time before going home.
+
+You never asked for this attention,
+but my heart gave it anyway.
+        </p>
+
+        <div class="buttons-row">
+          <button class="ghost" data-go="3">⬅ Back</button>
+          <button class="primary" data-go="5">Next ➜</button>
+        </div>
+      </section>
+
+      <!-- PAGE 5 -->
+      <section class="page" id="page5">
+        <div class="page-tag">Page 5 of 9 • What you mean</div>
+        <h2>What you became to me</h2>
+        <p class="text">
+Slowly,
+you turned from “just another classmate”
+into the best part of a normal day.
+
+You became the reason
+I check the timetable at night,
+hoping tomorrow has more periods
+where our paths might cross.
+
+You became the answer
+to a question I never said out loud:
+
+“How can a simple smile from one person
+change an entire mood,
+an entire day,
+an entire heart?”
+        </p>
+
+        <div class="buttons-row">
+          <button class="ghost" data-go="4">⬅ Back</button>
+          <button class="primary" data-go="6">Next ➜</button>
+        </div>
+      </section>
+
+      <!-- PAGE 6 -->
+      <section class="page" id="page6">
+        <div class="page-tag">Page 6 of 9 • If you say yes</div>
+        <h2>If you ever say yes…</h2>
+        <p class="text">
+If, someday,
+you decide to give me a chance,
+I don’t promise a perfect story,
+but I do promise a pure one.
+
+I won’t disturb you with calls or messages you don’t want.
+I won’t rush you into anything you are not ready for.
+
+I will simply try
+to be someone you can trust,
+someone who respects you,
+your boundaries,
+your dreams,
+and your silence.
+
+Because for me,
+just being the reason behind even one of your real smiles
+would already feel like a huge yes from life.
+        </p>
+
+        <div class="buttons-row">
+          <button class="ghost" data-go="5">⬅ Back</button>
+          <button class="primary" data-go="7">Next ➜</button>
+        </div>
+      </section>
+
+      <!-- PAGE 7 -->
+      <section class="page" id="page7">
+        <div class="page-tag">Page 7 of 9 • If you don’t</div>
+        <h2>If you don’t feel the same</h2>
+        <p class="text">
+And if you don’t feel the same way,
+that is completely okay.
+
+Your heart is yours,
+and it has every right
+to choose its own story,
+its own person,
+its own timing.
+
+I won’t be angry.
+I won’t hate you.
+I won’t talk about you badly with anyone.
+
+I will simply accept your decision,
+quietly,
+and respect you the same in school.
+
+Because my feelings were never a burden for you to carry.
+They were just a truth I wanted you to know once.
+        </p>
+
+        <div class="buttons-row">
+          <button class="ghost" data-go="6">⬅ Back</button>
+          <button class="primary" data-go="8">Next ➜</button>
+        </div>
+      </section>
+
+      <!-- PAGE 8 -->
+      <section class="page" id="page8">
+        <div class="page-tag">Page 8 of 9 • A small promise</div>
+        <h2>The promise</h2>
+        <p class="text">
+No matter what your answer is,
+one thing will not change:
+
+my respect for you.
+
+I will still quietly wish
+that every exam, every result, every step of your life
+goes in your favour.
+
+I will still hope
+you get the happiness you deserve,
+even if I am not the reason behind it.
+
+Because this was never about forcing you
+to feel something back.
+It was only about being honest
+about what you mean to me.
+        </p>
+
+        <div class="buttons-row">
+          <button class="ghost" data-go="7">⬅ Back</button>
+          <button class="primary" data-go="9">Next ➜</button>
+        </div>
+      </section>
+
+      <!-- PAGE 9 -->
+      <section class="page" id="page9">
+        <div class="page-tag">Page 9 of 9 • The question</div>
+        <h2>So, Manpreet Kaur…</h2>
+        <p class="text">
+After all these pages,
+after all these unsaid days,
+it finally comes to a simple question.
+
+From a boy in your Class 10
+who may have never had a proper conversation with you,
+but still carries your smile in his heart every single day:
+
+Will you let this be
+the first small line
+in a story where,
+maybe,
+someday,
+it is not just “you” and “me” in the same class…
+
+…but “us” in the same chapter? 💖
+        </p>
+
+        <p class="question">Will you be the special one in my story?</p>
+
+        <div class="buttons-row">
+          <button class="primary" id="yesFinal">Yes 😳</button>
+          <button class="ghost" id="noFinal">I don’t know</button>
+        </div>
+
+        <div class="answer-text" id="answerFinal"></div>
+
+        <div class="buttons-row" style="margin-top:10px;">
+          <button class="ghost" data-go="1">⬅ Back to the first page</button>
+        </div>
+      </section>
+
     </div>
+  </div>
 
-    <script>
-        function checkName(event) {
-            event.preventDefault();
-            const name = document.getElementById('name').value;
-            if (name.toLowerCase() === 'manpreet') {
-                document.getElementById('loveMessage').style.display = 'block';
-                document.getElementById('proposal').style.display = 'block';
-                document.getElementById('response').style.display = 'none';
-            } else {
-                document.getElementById('proposal').style.display = 'none';
-                document.getElementById('response').style.display = 'block';
-                document.getElementById('loveMessage').style.display = 'none';
-                document.getElementById('response').innerHTML = '<p>Thank you for visiting!<br>We appreciate your time and interest.<br>Stay happy and keep smiling!</p>';
-            }
-        }
+  <script>
+    const herName = "Manpreet Kaur";
 
-        function showResponse(answer) {
-            const responseDiv = document.getElementById('response');
-            responseDiv.style.display = 'block';
-            document.getElementById('proposal').style.display = 'none';
-            if (answer === 'yes') {
-                responseDiv.innerHTML = '<p>Great! Here is my Instagram ID: <strong>@it_anime_ansh</strong><br>And my Snapchat number: <strong>8858320735</strong></p>';
-            } else {
-                responseDiv.innerHTML = '<p>Goodbye then!</p>';
-            }
-        }
-    </script>
+    // hearts animation
+    const heartsContainer = document.getElementById("hearts");
+    function createHeart(){
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = "❤";
+      const size = Math.random()*18+10;
+      h.style.fontSize = size + "px";
+      h.style.left = Math.random()*100 + "vw";
+      h.style.bottom = "-24px";
+      h.style.animationDuration = (Math.random()*3+4) + "s";
+      heartsContainer.appendChild(h);
+      setTimeout(()=>h.remove(),7000);
+    }
+    let heartInterval = setInterval(createHeart,800);
+
+    // page navigation
+    const pages = document.querySelectorAll("section.page");
+    function showPage(n){
+      pages.forEach(p=>{
+        p.classList.remove("active");
+      });
+      const target = document.getElementById("page"+n);
+      if(target) target.classList.add("active");
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+    document.addEventListener("click",e=>{
+      const btn = e.target.closest("[data-go]");
+      if(btn){
+        const n = btn.getAttribute("data-go");
+        showPage(n);
+      }
+    });
+
+    // runaway "No" button on page 1
+    const noBtnMain = document.getElementById("noBtnMain");
+    const yesBtnMain = document.getElementById("yesBtnMain");
+    const answerMain = document.getElementById("answerMain");
+
+    function moveNoButton(){
+      const parent = noBtnMain.parentElement;
+      const parentRect = parent.getBoundingClientRect();
+      const btnRect = noBtnMain.getBoundingClientRect();
+
+      const maxX = parentRect.width - btnRect.width - 10;
+      const maxY = parentRect.height - btnRect.height - 10;
+
+      const newX = Math.random()*maxX;
+      const newY = Math.random()*maxY;
+
+      noBtnMain.style.position = "relative";
+      noBtnMain.style.left = newX + "px";
+      noBtnMain.style.top  = newY + "px";
+    }
+    noBtnMain.addEventListener("mouseenter",moveNoButton);
+    noBtnMain.addEventListener("click",moveNoButton);
+
+    yesBtnMain.addEventListener("click",()=>{
+      answerMain.style.opacity = 0;
+      setTimeout(()=>{
+        answerMain.textContent =
+          "If you said yes, then thank you, " +
+          herName +
+          ". I promise to always respect you and keep this moment safe in my heart. 💗";
+        answerMain.style.opacity = 1;
+      },150);
+    });
+
+    // final page buttons
+    const yesFinal = document.getElementById("yesFinal");
+    const noFinal = document.getElementById("noFinal");
+    const answerFinal = document.getElementById("answerFinal");
+
+    yesFinal.addEventListener("click",()=>{
+      answerFinal.style.opacity = 0;
+      setTimeout(()=>{
+        answerFinal.textContent =
+          "Your yes would mean more than words can explain. I will remember this night, and your answer, for a very, very long time. 💖";
+        answerFinal.style.opacity = 1;
+      },150);
+
+      if(heartInterval) clearInterval(heartInterval);
+      heartInterval = setInterval(createHeart,260);
+    });
+
+    noFinal.addEventListener("click",()=>{
+      answerFinal.style.opacity = 0;
+      setTimeout(()=>{
+        answerFinal.textContent =
+          "Even if your answer is not a yes, thank you for reading all of this. You will still be someone very special in my story. 🌸";
+        answerFinal.style.opacity = 1;
+      },150);
+    });
+  </script>
 </body>
 </html>
